@@ -6,5 +6,5 @@ class MangaModel:
         """
         
         """
-        self.MangaId = MangaId
-        self.Chapters = Chapters
+        self.manga_id = MangaId
+        self.chapters = Chapters

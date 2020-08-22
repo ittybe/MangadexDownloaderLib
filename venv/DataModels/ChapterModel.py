@@ -6,23 +6,23 @@ class ChapterModel:
         """
 
         """
-        self.ChapterId = ChapterId
-        self.Pages = Pages
-        self.Volume = Volume
-        self.Chapter = Chapter
-        self.LangCode = LangCode
+        self.chapter_id = ChapterId
+        self.pages = Pages
+        self.volume = Volume
+        self.chapter = Chapter
+        self.lang_code = LangCode
 
     def get_chapter_number(self):
         """
 
         """
-        return float(self.Chapter)
+        return float(self.chapter)
 
     def get_volume_number(self):
         """
         
         """
-        return float(self.Volume)
+        return float(self.volume)
     
     @staticmethod
     def get_pattern_for_filename():

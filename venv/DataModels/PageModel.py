@@ -7,9 +7,13 @@ class PageModel:
         '''
         
         '''
-        self.Url = Url
-        self.PageNumber = PageNumber
-        self.Filename = filename
+        # url to image
+        self.url = Url
+
+        self.page_number = PageNumber
+
+        # suggested filename for saving localy
+        self.filename = filename
 
     
     
