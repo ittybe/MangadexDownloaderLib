@@ -1,6 +1,8 @@
 import requests
 import json
 from Parsing.parsing_logger import parsing_logger
+import multiprocessing
+from typing import Union
 
 class MangadexJsonParser:
 
@@ -8,7 +10,7 @@ class MangadexJsonParser:
         self.url_api_manga = url_api_manga
         self.url_api_chapter = url_api_chapter
 
-    def get_chapter_json(self, chapter_id :int): 
+    def get_chapter_json(self, chapter_id : Union[int, str]): 
         chapter_json = None
         try:
             url_json = f"{self.url_api_chapter}/{chapter_id}"
@@ -29,7 +31,7 @@ class MangadexJsonParser:
 
         return chapter_json
     
-    def get_manga_json(self, manga_id :int):
+    def get_manga_json(self, manga_id :Union[int, str]):
         manga_json = None
         try:
             url_json = f"{self.url_api_manga}/{manga_id}"
@@ -50,12 +52,26 @@ class MangadexJsonParser:
 
         return manga_json
 
-    def get_chapters_json(self, chapters_ids :list, threads :int):
-        
-        return
+    def get_chapters_json(self, chapters_ids :list, processes :int):
+        '''
 
-    def get_mangas_json(self, mangas_ids :list, threads :int):
-        
-        return
+        param processes: is number of processes for pool
+        param chapters_ids: list of int numbers
+        '''
+        chapterModels = None
+        with multiprocessing.Pool(processes) as p:
+            chapterModels = p.map(self.get_chapter_json, chapters_ids)
+
+        return chapterModels
+
+    def get_mangas_json(self, mangas_ids :list, processes :int):
+        '''
+
+        '''
+        mangaModels = None
+        with multiprocessing.Pool(processes) as p:
+            mangaModels = p.map(self.get_manga_json, mangas_ids)
+
+        return mangaModels
 
     

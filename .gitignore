@@ -4,6 +4,6 @@
 /venv/pyvenv.cfg
 /venv/main.py
 /venv/DataModels/__pycache__
+/venv/Parsing/__pycache__
 /.vscode
 /.idea
-/venv/Parsing/__pycache__

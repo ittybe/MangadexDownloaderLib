@@ -3,10 +3,13 @@ from DataModels.MangaModel import MangaModel
 from DataModels.PageModel import PageModel
 import re
 from DataModels.models_logger import models_logger
-
+import urllib.parse
 class ModelsFactory:
     @staticmethod
     def create_manga_model_by_json(json: dict, mangaId: int):
+        '''
+        WARNING! this method do NOT fill pages list in chapters
+        '''
         mangaModel = None
         try:
             chapterRaw = json["chapter"]
@@ -53,21 +56,21 @@ class ModelsFactory:
             langCode = json["lang_code"]
 
             # server where placed all chapters images
-            server = json["server"]
+            server = json["server"] 
             
             # folder where placed all images on server
-            hash_server = json["hash"]
+            hash_server = json["hash"]   # this is really stupid but I hope it will work 
 
             # contains all pages 
-            url = f"{server}/{hash_server}/"
-
+            # url = urllib.parse.urljoin(server, hash_server)
+            url = f"{server}{hash_server}/"
             # pages
             pages = []
 
             # fill pages with pages
             for pageNumber, fileName in enumerate(json["page_array"]):
                 # url on image 
-                urlImage = f"{url}/{fileName}"
+                urlImage = urllib.parse.urljoin(url, fileName)
                     
                 # suggested filename for page (if you will save this on disk)
                 pageFilename = f"{hash_server}_{pageNumber}_{fileName}"
@@ -76,10 +79,8 @@ class ModelsFactory:
                 pattern = ChapterModel.get_pattern_for_filename()
                 if (re.match(pattern, pageFilename) == None):
                     models_logger.warning(f"{pageFilename} not match pattern {pattern}")
-                else:
-                    models_logger.debug(f"{pageFilename} match pattern {pattern}")
 
-                pageModel = PageModel(pageNumber, urlImage, pageFilename)
+                pageModel = PageModel(urlImage, pageNumber, pageFilename)
                     
                 pages.append(pageModel)
 
