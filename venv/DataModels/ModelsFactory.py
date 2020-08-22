@@ -1,6 +1,8 @@
 from DataModels.ChapterModel import ChapterModel
 from DataModels.MangaModel import MangaModel
 from DataModels.PageModel import PageModel
+import re
+from DataModels.models_logger import models_logger
 
 class ModelsFactory:
     @staticmethod
@@ -32,7 +34,8 @@ class ModelsFactory:
                 chapters.append(chapter)
 
             # result
-            mangaModel = MangaModel( mangaId, chapters)
+            mangaModel = MangaModel(mangaId, chapters)
+            models_logger.debug(f"mangaModel parsed succesfully, {mangaModel}")
             return mangaModel
         except KeyError:
             raise ValueError("json argument has ivalid structure!")
@@ -58,16 +61,43 @@ class ModelsFactory:
             # pages
             pages = []
 
-            for page in json["page_array"]:
-                for pageNumber, fileName in enumerate(page):
-                    # url on image 
-                    urlImage = f"{url}/{fileName}"
+            # for page in json["page_array"]:
+            #     for pageNumber, fileName in enumerate(page):
+            #         # url on image 
+            #         urlImage = f"{url}/{fileName}"
                     
-                    pageModel = PageModel(pageNumber, urlImage)
+            #         # suggested filename for page (if you will save this on disk)
+            #         pageFilename = f"{hash_server}_{pageNumber}_{fileName}"
                     
-                    pages.append(pageModel)
+            #         # warning in logger if pageFilename not match pattern in ChapterModel
+            #         pattern = ChapterModel.get_pattern_for_filename()
+            #         if (re.match(pattern, pageFilename) == None):
+            #             models_logger.warning(f"{pageFilename} not match pattern {pattern}")
+
+            #         pageModel = PageModel(pageNumber, urlImage, pageFilename)
+                    
+            #         pages.append(pageModel)
             
+            for pageNumber, fileName in enumerate(json["page_array"]):
+                # url on image 
+                urlImage = f"{url}/{fileName}"
+                    
+                # suggested filename for page (if you will save this on disk)
+                pageFilename = f"{hash_server}_{pageNumber}_{fileName}"
+                    
+                # warning in logger if pageFilename not match pattern in ChapterModel
+                pattern = ChapterModel.get_pattern_for_filename()
+                if (re.match(pattern, pageFilename) == None):
+                    models_logger.warning(f"{pageFilename} not match pattern {pattern}")
+                else:
+                    models_logger.debug(f"{pageFilename} match pattern {pattern}")
+
+                pageModel = PageModel(pageNumber, urlImage, pageFilename)
+                    
+                pages.append(pageModel)
+
             chapterModel = ChapterModel(chapterId, pages, chapter, volume, langCode)
+            models_logger.debug(f"chapter parsed succesfully, {chapterModel}")
             return chapterModel
         except KeyError:
             raise ValueError("json argument has ivalid structure!")
