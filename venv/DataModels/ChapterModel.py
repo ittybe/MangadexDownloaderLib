@@ -12,13 +12,13 @@ class ChapterModel:
         self.Chapter = Chapter
         self.LangCode = LangCode
 
-    def getChapterNumber(self):
+    def get_chapter_number(self):
         """
 
         """
         return float(self.Chapter)
 
-    def getVolumeNumber(self):
+    def get_volume_number(self):
         """
         
         """

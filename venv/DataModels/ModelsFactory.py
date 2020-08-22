@@ -4,7 +4,7 @@ from DataModels.PageModel import PageModel
 
 class ModelsFactory:
     @staticmethod
-    def createMangaModelByJson(json: dict, mangaId: int):
+    def create_manga_model_by_json(json: dict, mangaId: int):
         try:
             chapterRaw = json["chapter"]
 
@@ -36,9 +36,9 @@ class ModelsFactory:
             return mangaModel
         except KeyError:
             raise ValueError("json argument has ivalid structure!")
-        
+
     @staticmethod
-    def createChapterModelByJson(json):
+    def create_chapter_model_by_json(json :dict):
         try:
             # get data from json 
             chapterId = json["id"]
@@ -78,12 +78,12 @@ if __name__ == "__main__":
     import json
     with open(r'C:\Users\Lenovo\Downloads\something\454.json') as json_file:
         mangaRaw = json.load(json_file)
-        manga = ModelsFactory.createMangaModelByJson(mangaRaw, 454)
+        manga = ModelsFactory.create_manga_model_by_json(mangaRaw, 454)
         print(manga.MangaId)
         for i in manga.Chapters:
             print(i.ChapterId)
     with open(r'C:\Users\Lenovo\Downloads\something\21737.json') as json_file:
         mangaRaw = json.load(json_file)
-        manga = ModelsFactory.createChapterModelByJson(mangaRaw)
+        manga = ModelsFactory.create_chapter_model_by_json(mangaRaw)
         print(manga.ChapterId)
         print(manga.LangCode)
