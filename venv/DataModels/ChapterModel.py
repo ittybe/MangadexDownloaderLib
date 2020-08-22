@@ -27,10 +27,10 @@ class ChapterModel:
     @staticmethod
     def get_pattern_for_filename():
         '''this is regex for filename for pages
-        first [] is hash server
-        second [] is page number in chapter
-        third [] is filename (on server)
-        forth [] is extension
+        first [] is hash server,
+        second [] is page number in chapter,
+        third [] is filename (on server),
+        forth [] is extension,
 
         @returns regular expression for suggested filename
         '''

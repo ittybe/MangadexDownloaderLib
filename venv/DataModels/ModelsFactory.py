@@ -7,6 +7,7 @@ from DataModels.models_logger import models_logger
 class ModelsFactory:
     @staticmethod
     def create_manga_model_by_json(json: dict, mangaId: int):
+        mangaModel = None
         try:
             chapterRaw = json["chapter"]
 
@@ -35,13 +36,15 @@ class ModelsFactory:
 
             # result
             mangaModel = MangaModel(mangaId, chapters)
-            models_logger.debug(f"mangaModel parsed succesfully, {mangaModel}")
-            return mangaModel
         except KeyError:
             raise ValueError("json argument has ivalid structure!")
+        else: 
+            models_logger.debug(f"mangaModel parsed succesfully, {id(mangaModel)}")
+        return mangaModel
 
     @staticmethod
     def create_chapter_model_by_json(json :dict):
+        chapterModel = None
         try:
             # get data from json 
             chapterId = json["id"]
@@ -61,23 +64,7 @@ class ModelsFactory:
             # pages
             pages = []
 
-            # for page in json["page_array"]:
-            #     for pageNumber, fileName in enumerate(page):
-            #         # url on image 
-            #         urlImage = f"{url}/{fileName}"
-                    
-            #         # suggested filename for page (if you will save this on disk)
-            #         pageFilename = f"{hash_server}_{pageNumber}_{fileName}"
-                    
-            #         # warning in logger if pageFilename not match pattern in ChapterModel
-            #         pattern = ChapterModel.get_pattern_for_filename()
-            #         if (re.match(pattern, pageFilename) == None):
-            #             models_logger.warning(f"{pageFilename} not match pattern {pattern}")
-
-            #         pageModel = PageModel(pageNumber, urlImage, pageFilename)
-                    
-            #         pages.append(pageModel)
-            
+            # fill pages with pages
             for pageNumber, fileName in enumerate(json["page_array"]):
                 # url on image 
                 urlImage = f"{url}/{fileName}"
@@ -97,23 +84,8 @@ class ModelsFactory:
                 pages.append(pageModel)
 
             chapterModel = ChapterModel(chapterId, pages, chapter, volume, langCode)
-            models_logger.debug(f"chapter parsed succesfully, {chapterModel}")
-            return chapterModel
         except KeyError:
             raise ValueError("json argument has ivalid structure!")
-        
-
-
-if __name__ == "__main__":
-    import json
-    with open(r'C:\Users\Lenovo\Downloads\something\454.json') as json_file:
-        mangaRaw = json.load(json_file)
-        manga = ModelsFactory.create_manga_model_by_json(mangaRaw, 454)
-        print(manga.MangaId)
-        for i in manga.Chapters:
-            print(i.ChapterId)
-    with open(r'C:\Users\Lenovo\Downloads\something\21737.json') as json_file:
-        mangaRaw = json.load(json_file)
-        manga = ModelsFactory.create_chapter_model_by_json(mangaRaw)
-        print(manga.ChapterId)
-        print(manga.LangCode)
+        else: 
+            models_logger.debug(f"chapter parsed succesfully, {id(chapterModel)}")
+        return chapterModel

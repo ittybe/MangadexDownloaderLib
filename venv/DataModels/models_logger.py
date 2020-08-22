@@ -1,5 +1,5 @@
 '''
-init datamodels logger object for logging everything in DataModels modules 
+init models logger object for logging everything in DataModels modules 
 '''
 import logging 
 
