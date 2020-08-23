@@ -98,3 +98,33 @@ class PageModel:
     
     def __str__(self):
         return f"volume: {self.volume_number} chapter: {self.chapter_number} page: {self.page_number}, hash: {self.hash_chapter}, server url: {self.server_url}, filename on server: {self.filename_on_server}"
+
+    def __lt__(self, other):
+        if self.volume_number < other.volume_number:
+            return True
+        elif self.chapter_number < other.chapter_number:
+            return True
+        elif self.page_number < other.page_number:
+            return True
+        else:
+            return False
+
+    def __eq__(self, other):
+        if (self.volume_number == other.volume_number 
+        and self.chapter_number == other.chapter_number 
+        and self.page_number == other.page_number):
+            return True
+        else:
+            return False
+
+    def __gt__(self, other):
+        return not (self < other)
+    
+    def __ne__(self, other):
+        return not (self == other)
+
+    def __le__(self, other):
+        return ( self < other ) or (self == other)
+
+    def __ge__(self, other):
+        return (self > other) or (self == other)

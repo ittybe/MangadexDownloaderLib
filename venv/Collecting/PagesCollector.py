@@ -25,16 +25,22 @@ class PagesCollector:
         for file in list_of_files_in_dir:
             if (re.match(pattern, file) != None):
                 page = PageModel.from_filename_to_pagemodel(file)
-
                 pages.append(page)
-
+        
         return pages
 
 
     def collect_pages(self):
         images = []
-        for page in self._get_pages_info():
+
+        pages = self._get_pages_info()
+        
+        # sort pages by volume chapter page number  
+        pages.sort()
+
+        # add in images Image objects
+        for page in pages:
             fullpath = os.path.join(self.folder, page.get_filename())
             images.append(Image.open(fullpath))
-            
+
         images[0].save(self.fileoutput, save_all=True, append_images=images)
