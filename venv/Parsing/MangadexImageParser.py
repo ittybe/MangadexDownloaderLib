@@ -20,9 +20,9 @@ class MangadexImageParser:
         return : path to image result
         '''
         # save full path
-        fileoutput = os.path.join(self.folder, page.filename)
+        fileoutput = os.path.join(self.folder, page.get_filename())
         
-        r = requests.get(page.url, stream=True)
+        r = requests.get(page.get_url(), stream=True)
         
         # write image to file 
         if r.status_code == 200:
@@ -34,8 +34,10 @@ class MangadexImageParser:
                 r.close()
     
             return fileoutput
-        else:
+        elif r.status_code == 404:
             raise Exception("page is not found")
+        else:
+            raise Exception(f"page cant be parsed because status code is not 200, status code is {r.status_code}")
         
 
     def parse_images(self, pages :list, processes: int, tries: int):
@@ -43,6 +45,8 @@ class MangadexImageParser:
         param pages is list, filled with PageModel objects
         param processes is max number of process
         param tries is number of trying save image on disk for one func call
+
+        
         '''
 
         parse_image_func = partial(self.parse_image_retrying_mode, tries=tries)
@@ -61,7 +65,9 @@ class MangadexImageParser:
                 fileoutput = self.parse_image(page)
                 return fileoutput
             except Exception:
-                if (i == tries - 1):
+                print(f"Hello from {multiprocessing.current_process().authkey}")
+                
+                if (i <= tries - 1):
                     multiprocess_parsing_logger.error(f"exception has occured (parsing url is {page.url})", exc_info=True)
                     raise
         

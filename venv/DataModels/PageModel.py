@@ -32,15 +32,17 @@ class PageModel:
         '''
         returns url to image
         '''
-        url = urllib.parse.urljoin(self.server_url, self.hash_chapter, self.filename_on_server)
+        url = urllib.parse.urljoin(self.server_url, self.hash_chapter)
+        url = urllib.parse.urljoin(url + "/", self.filename_on_server)
         return url
 
     def get_filename(self):
         '''
         returns suggested filename for image
         '''
-        filename, file_extention = os.path.splitext(self.filename_on_server)
-        return f"{self.hash_chapter}_{self.volume_number}_{self.chapter_number}_{self.page_number}_{file_extention}"
+        filename_and_ext = os.path.splitext(self.filename_on_server)
+        file_extension = filename_and_ext[1]
+        return f"{self.hash_chapter}_{self.volume_number}_{self.chapter_number}_{self.page_number}_{file_extension}"
     
 
     @staticmethod
@@ -54,5 +56,5 @@ class PageModel:
 
         @returns regular expression for suggested filename
         '''
-        return "[a-zA-Z0-9]+_[0-9.]+_[0-9.]+_[0-9]_.[a-zA-Z0-9]+"
+        return "[a-zA-Z0-9]+_[0-9.]+_[0-9.]+_[0-9]+_.[a-zA-Z0-9]+"
     
