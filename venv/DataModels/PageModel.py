@@ -51,7 +51,9 @@ class PageModel:
         '''
         WARNING! server_url property will be None, filename_on_server will be pagenumber.extension for get_filename() method
         '''
-        
+        # by the way, PageModel get_filename() should return same value (regardless of dump or parse filename)
+
+
         # get only filename
         filename = os.path.basename(filepath)
         

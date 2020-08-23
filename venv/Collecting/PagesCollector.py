@@ -1,7 +1,7 @@
-import fpdf
 from DataModels.PageModel import PageModel
 import os
 import re
+from PIL import Image
 
 class PagesCollector:
 
@@ -32,11 +32,9 @@ class PagesCollector:
 
 
     def collect_pages(self):
-        
-        return
-    
-    def collect_pages_with_table_of_content(self):
-
-        return
-
-
+        images = []
+        for page in self._get_pages_info():
+            fullpath = os.path.join(self.folder, page.get_filename())
+            images.append(Image.open(fullpath))
+            
+        images[0].save(self.fileoutput, save_all=True, append_images=images)
