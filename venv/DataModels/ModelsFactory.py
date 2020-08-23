@@ -86,7 +86,7 @@ class ModelsFactory:
 
             chapterModel = ChapterModel(chapterId, pages, chapter, volume, langCode)
         except KeyError:
-            raise ValueError("json argument has ivalid structure!")
+            raise ValueError("json argument has invalid structure!")
         else: 
             models_logger.debug(f"chapter parsed succesfully, {id(chapterModel)}")
         return chapterModel
