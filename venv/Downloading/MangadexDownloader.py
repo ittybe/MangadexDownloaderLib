@@ -12,7 +12,7 @@ import tempfile
 
 from typing import Union
 
-class MangadexDownload:
+class MangadexDownloader:
     def __init__(self, fileoutput, folder):
         self.collector = PagesCollector(fileoutput, folder)
         self.json_parser = MangadexJsonParser()
@@ -22,6 +22,7 @@ class MangadexDownload:
         '''
         param id is id from mangadex 
         returns list of mangaModel
+        WARNING! manga model leave pages property as None
         '''
         
         manga_raw_json = self.json_parser.get_manga_json(id)
@@ -30,7 +31,7 @@ class MangadexDownload:
 
         return manga_model
 
-    def download_chapters_info(self, manga_model :MangaModel):
+    def download_chapters_pages_info(self, manga_model :MangaModel):
         '''
         param manga_model is MangaModel object
         returns list of ChapterModel objects
@@ -39,7 +40,7 @@ class MangadexDownload:
             raise TypeError(f"manga_model is not {type(MangaModel)}, manga_model is {type(manga_model)}")
 
         # get all ids from manga model
-        ids = [chapter.id for chapter in manga_model.chapters]
+        ids = [chapter.chapter_id for chapter in manga_model.chapters]
 
         # get raw json of chapters (list)
         chapters_raw_json = self.json_parser.get_chapters_json(ids, 1)
@@ -51,14 +52,13 @@ class MangadexDownload:
         
         return chapters
 
-    def download_chapters(self, chapters :ChapterModel, processes :int):
+    def download_chapters(self, pages :ChapterModel, processes :int):
         '''
-        param chapters is list containing ChapterModel objects
+        param pages is list containing PageModel objects
         param processes is number of python processes, this arg for pool 
         returns: nothing, it just download chapters in pdf format (self.fileoutput is file where it will save it)
         '''
-        for chapter in chapters:
-            self.image_parser.parse_images(chapter.pages, processes, 10)
+        self.image_parser.parse_images(pages, processes, 10)
         
         self.collector.collect_pages()
 

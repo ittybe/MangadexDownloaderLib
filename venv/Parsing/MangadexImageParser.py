@@ -19,6 +19,8 @@ class MangadexImageParser:
         param page has type PageModel
         return : path to image result
         '''
+        if type(page) is not PageModel:
+            raise TypeError(f'page is not {PageModel} type, page has type {type(page)}')
         # save full path
         fileoutput = os.path.join(self.folder, page.get_filename())
         
@@ -45,9 +47,9 @@ class MangadexImageParser:
         param pages is list, filled with PageModel objects
         param processes is max number of process
         param tries is number of trying save image on disk for one func call
-
-        
         '''
+        if type(pages) is not list:
+            raise TypeError(f'page is not {list} type, page has type {type(pages)}')
 
         parse_image_func = partial(self.parse_image_retrying_mode, tries=tries)
         with multiprocessing.Pool(processes) as p:
@@ -65,9 +67,7 @@ class MangadexImageParser:
                 fileoutput = self.parse_image(page)
                 return fileoutput
             except Exception:
-                print(f"Hello from {multiprocessing.current_process().authkey}")
-                
                 if (i <= tries - 1):
-                    multiprocess_parsing_logger.error(f"exception has occured (parsing url is {page.url})", exc_info=True)
+                    multiprocess_parsing_logger.error(f"exception has occured (parsing url is {page.get_url()})", exc_info=True)
                     raise
         

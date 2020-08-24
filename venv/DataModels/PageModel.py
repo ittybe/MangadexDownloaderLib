@@ -99,13 +99,20 @@ class PageModel:
     def __str__(self):
         return f"volume: {self.volume_number} chapter: {self.chapter_number} page: {self.page_number}, hash: {self.hash_chapter}, server url: {self.server_url}, filename on server: {self.filename_on_server}"
 
+    def __repr__(self):
+        return self.__str__()
+
     def __lt__(self, other):
-        if self.volume_number < other.volume_number:
-            return True
-        elif self.chapter_number < other.chapter_number:
-            return True
-        elif self.page_number < other.page_number:
-            return True
+        volume_number_compare = self.volume_number < other.volume_number
+        chapter_number_compare = self.chapter_number < other.chapter_number
+        page_number_compare = self.page_number < other.page_number
+
+        if (volume_number_compare):
+            return volume_number_compare
+        elif (chapter_number_compare):
+            return chapter_number_compare
+        elif (page_number_compare):
+            return page_number_compare
         else:
             return False
 
@@ -117,14 +124,14 @@ class PageModel:
         else:
             return False
 
-    def __gt__(self, other):
-        return not (self < other)
+    # def __gt__(self, other):
+    #     return not (self < other)
     
-    def __ne__(self, other):
-        return not (self == other)
+    # def __ne__(self, other):
+    #     return not (self == other)
 
-    def __le__(self, other):
-        return ( self < other ) or (self == other)
+    # def __le__(self, other):
+    #     return ( self < other ) or (self == other)
 
-    def __ge__(self, other):
-        return (self > other) or (self == other)
+    # def __ge__(self, other):
+    #     return (self > other) or (self == other)

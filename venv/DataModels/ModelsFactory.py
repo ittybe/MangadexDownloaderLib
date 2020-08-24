@@ -82,7 +82,7 @@ class ModelsFactory:
                 page = PageModel(
                     pageNumber,
                     ModelsFactory._string_to_float(chapter_number),
-                    ModelsFactory._string_to_float(chapter_number),
+                    ModelsFactory._string_to_float(volume_number),
                     hash_chapter,
                     server,
                     filename)

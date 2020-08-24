@@ -6,5 +6,6 @@
 /venv/DataModels/__pycache__
 /venv/Parsing/__pycache__
 /venv/Collecting/__pycache__
+/venv/Downloading/__pycache__
 /.vscode
 /.idea
