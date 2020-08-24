@@ -31,7 +31,7 @@ class MangadexDownloader:
 
         return manga_model
 
-    def download_chapters_pages_info(self, manga_model :MangaModel):
+    def download_chapters_and_pages_info(self, manga_model :MangaModel):
         '''
         param manga_model is MangaModel object
         returns list of ChapterModel objects

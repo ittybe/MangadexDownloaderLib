@@ -103,18 +103,29 @@ class PageModel:
         return self.__str__()
 
     def __lt__(self, other):
-        volume_number_compare = self.volume_number < other.volume_number
-        chapter_number_compare = self.chapter_number < other.chapter_number
-        page_number_compare = self.page_number < other.page_number
+        volume_number_compare = self.volume_number >= other.volume_number
+        chapter_number_compare = self.chapter_number >= other.chapter_number
+        page_number_compare = self.page_number >= other.page_number
 
-        if (volume_number_compare):
-            return volume_number_compare
-        elif (chapter_number_compare):
-            return chapter_number_compare
-        elif (page_number_compare):
-            return page_number_compare
-        else:
+        # other volume number bigger than self and not equel
+        if (volume_number_compare == False):
+            return True
+        elif (volume_number_compare == True and self.volume_number > other.volume_number):
             return False
+
+        # other chapter number bigger than self and not equel
+        if (chapter_number_compare == False):
+            return True
+        elif (volume_number_compare == True and self.chapter_number > other.chapter_number):
+            return False
+
+        # other page number bigger than self and not equel
+        if (page_number_compare == False):
+            return True
+        else: 
+            # it mean that this page number is equel or bigger
+            return False
+
 
     def __eq__(self, other):
         if (self.volume_number == other.volume_number 
