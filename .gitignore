@@ -1,11 +1,11 @@
 # created by virtualenv automatically
-/venv/Lib/
-/venv/Scripts/
-/venv/pyvenv.cfg
-/venv/main.py
-/venv/DataModels/__pycache__
-/venv/Parsing/__pycache__
-/venv/Collecting/__pycache__
-/venv/Downloading/__pycache__
+/Lib/
+/Scripts/
+/pyvenv.cfg
+/main.py
+/DataModels/__pycache__
+/Parsing/__pycache__
+/Collecting/__pycache__
+/Downloading/__pycache__
 /.vscode
 /.idea
