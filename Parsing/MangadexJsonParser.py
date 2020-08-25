@@ -31,6 +31,7 @@ class MangadexJsonParser:
 
         except Exception:
             parsing_logger.error(f"unknown exception has occured {url_json}", exc_info=True)
+            raise
         else:
             parsing_logger.debug(f"chapter json parsing finished {id(chapter_json)}")
 
@@ -62,6 +63,7 @@ class MangadexJsonParser:
 
         except Exception:
             parsing_logger.error("unknown exception has occured", exc_info=True)
+            raise
         else:
             parsing_logger.debug(f"manga json parsing finished {id(manga_json)}")
 
