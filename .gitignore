@@ -10,3 +10,6 @@
 /Downloading/__pycache__
 /.vscode
 /.idea
+/build
+/dist
+/MangadexDownloaderLib.egg-info
