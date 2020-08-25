@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from Notifying.Observer import Observer
 
+from MangadexDownloaderLib.Observer import Observer
 
 class Event(ABC):
     @abstractmethod

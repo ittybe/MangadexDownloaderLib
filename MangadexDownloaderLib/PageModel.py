@@ -2,7 +2,8 @@ from typing import Union
 import urllib
 import os
 import re
-from DataModels.models_logger import models_logger
+
+from MangadexDownloaderLib.models_logger import models_logger
 
 class PageModel:
     """

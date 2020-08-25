@@ -5,12 +5,12 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="MangadexDownloaderLib",
-    packages=setuptools.find_packages(),
+    packages=setuptools.find_namespace_packages(include=("MangadexDownloaderLib",)),
     author="ittybe",
     author_email="ittybemain@gmail.com",
     description="fast downloading manga from mangadex in pdf format",
     long_description=long_description,
-    version="1.0.0",
+    version="0.0.1",
     python_requires='>=3.8',
     install_requires=[
         "Pillow==7.2.0",

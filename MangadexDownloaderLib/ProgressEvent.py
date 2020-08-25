@@ -1,5 +1,5 @@
-from Notifying.Observer import Observer
-from Notifying.Event import Event
+from MangadexDownloaderLib.Observer import Observer
+from MangadexDownloaderLib.Event import Event
 
 class ProgressEvent(Event):
     

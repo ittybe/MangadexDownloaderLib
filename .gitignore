@@ -3,11 +3,7 @@
 /Scripts/
 /pyvenv.cfg
 /main.py
-/DataModels/__pycache__
-/Parsing/__pycache__
-/Collecting/__pycache__
-/Notifying/__pycache__
-/Downloading/__pycache__
+MangadexDownloaderLib/__pycache__
 /.vscode
 /.idea
 /build

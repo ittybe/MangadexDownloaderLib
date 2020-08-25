@@ -1,12 +1,12 @@
-from DataModels.PageModel import PageModel
 import os
 import re
 from PIL import Image
 import tempfile
 from io import BytesIO
 from PyPDF2 import PdfFileMerger, PdfFileReader
-from Notifying.ProgressEvent import ProgressEvent
 
+from MangadexDownloaderLib.ProgressEvent import ProgressEvent
+from MangadexDownloaderLib.PageModel import PageModel
 
 class PagesCollector:
 

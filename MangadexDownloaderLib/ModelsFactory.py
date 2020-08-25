@@ -1,8 +1,9 @@
-from DataModels.ChapterModel import ChapterModel
-from DataModels.MangaModel import MangaModel
-from DataModels.PageModel import PageModel
+from MangadexDownloaderLib.ChapterModel import ChapterModel
+from MangadexDownloaderLib.MangaModel import MangaModel
+from MangadexDownloaderLib.PageModel import PageModel
+from MangadexDownloaderLib.models_logger import models_logger
+
 import re
-from DataModels.models_logger import models_logger
 import urllib.parse
 class ModelsFactory:
     @staticmethod

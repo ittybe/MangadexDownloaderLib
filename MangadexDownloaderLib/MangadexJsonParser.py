@@ -1,9 +1,10 @@
 import requests
 import json
-from Parsing.parsing_logger import parsing_logger
 import multiprocessing
 from typing import Union
-from Notifying.ProgressEvent import ProgressEvent
+
+from MangadexDownloaderLib.ProgressEvent import ProgressEvent
+from MangadexDownloaderLib.parsing_logger import parsing_logger
 
 class MangadexJsonParser:
 

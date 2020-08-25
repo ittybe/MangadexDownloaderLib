@@ -1,10 +1,11 @@
 import requests
 import multiprocessing
-from DataModels.PageModel import PageModel
 import os
-from Parsing.parsing_logger import multiprocess_parsing_logger
 from functools import partial
-from Notifying.ProgressEvent import ProgressEvent
+
+from MangadexDownloaderLib.PageModel import PageModel
+from MangadexDownloaderLib.ProgressEvent import ProgressEvent
+from MangadexDownloaderLib.parsing_logger import multiprocess_parsing_logger
 
 
 class MangadexImageParser:

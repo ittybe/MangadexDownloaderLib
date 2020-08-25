@@ -1,13 +1,13 @@
-from DataModels.ModelsFactory import ModelsFactory
-from DataModels.PageModel import PageModel
-from DataModels.MangaModel import MangaModel
-from DataModels.ChapterModel import ChapterModel
+from MangadexDownloaderLib.ModelsFactory import ModelsFactory
+from MangadexDownloaderLib.PageModel import PageModel
+from MangadexDownloaderLib.MangaModel import MangaModel
+from MangadexDownloaderLib.ChapterModel import ChapterModel
 
-from Parsing.MangadexImageParser import MangadexImageParser
-from Parsing.MangadexJsonParser import MangadexJsonParser
+from MangadexDownloaderLib.MangadexImageParser import MangadexImageParser
+from MangadexDownloaderLib.MangadexJsonParser import MangadexJsonParser
 
-from Collecting.PagesCollector import PagesCollector
-from Notifying.Observer import Observer
+from MangadexDownloaderLib.PagesCollector import PagesCollector
+from MangadexDownloaderLib.Observer import Observer
 
 import tempfile 
 
