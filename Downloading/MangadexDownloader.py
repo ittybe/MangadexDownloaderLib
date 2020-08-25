@@ -7,6 +7,7 @@ from Parsing.MangadexImageParser import MangadexImageParser
 from Parsing.MangadexJsonParser import MangadexJsonParser
 
 from Collecting.PagesCollector import PagesCollector
+from Notifying.Observer import Observer
 
 import tempfile 
 
@@ -17,6 +18,8 @@ class MangadexDownloader:
         self.collector = PagesCollector(fileoutput, folder)
         self.json_parser = MangadexJsonParser()
         self.image_parser = MangadexImageParser(folder)
+
+    
 
     def download_manga_info(self, id :Union[int, str]):
         '''
@@ -31,19 +34,14 @@ class MangadexDownloader:
 
         return manga_model
 
-    def download_chapters_and_pages_info(self, manga_model :MangaModel):
+    def download_chapters_and_pages_info(self, chapters_ids :list):
         '''
-        param manga_model is MangaModel object
+        param chapters_ids is list object, containing int objects
         returns list of ChapterModel objects
         '''
-        if (type(manga_model) is not MangaModel):
-            raise TypeError(f"manga_model is not {type(MangaModel)}, manga_model is {type(manga_model)}")
-
-        # get all ids from manga model
-        ids = [chapter.chapter_id for chapter in manga_model.chapters]
 
         # get raw json of chapters (list)
-        chapters_raw_json = self.json_parser.get_chapters_json(ids, 1)
+        chapters_raw_json = self.json_parser.get_chapters_json(chapters_ids, 1)
 
         # convert json to chaptermodel
         chapters = []
@@ -52,7 +50,7 @@ class MangadexDownloader:
         
         return chapters
 
-    def download_chapters(self, pages :ChapterModel, processes :int):
+    def download_pages(self, pages :ChapterModel, processes :int):
         '''
         param pages is list containing PageModel objects
         param processes is number of python processes, this arg for pool 
@@ -62,4 +60,33 @@ class MangadexDownloader:
         
         self.collector.collect_pages()
 
+    def collect_pages(self):
+        self.collector.collect_pages()
 
+
+    # method for friendly-user experience
+    def attach_to_chapter_json_process_event(self, observer :Observer):
+        self.json_parser.chapter_progress_event.attach(observer)
+    
+    def detach_to_chapter_json_process_event(self, observer :Observer):
+        self.json_parser.chapter_progress_event.detach(observer)
+    
+    def attach_to_manga_json_process_event(self, observer :Observer):
+        self.json_parser.manga_progress_event.attach(observer)
+
+    def detach_to_manga_json_process_event(self, observer :Observer):
+        self.json_parser.manga_progress_event.detach(observer)
+    
+    def attach_to_image_parser_process_event(self, observer :Observer):
+        self.image_parser.progress_event.attach(observer)
+
+    def detach_to_image_parser_process_event(self, observer :Observer):
+        self.image_parser.progress_event.detach(observer)
+
+    def attach_to_collector_process_event (self, observer :Observer):
+        self.collector.progress_event.attach(observer)
+
+    def detach_to_collector_process_event (self, observer :Observer):
+        self.collector.progress_event.detach(observer)
+
+    

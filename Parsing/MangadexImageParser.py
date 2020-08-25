@@ -4,6 +4,8 @@ from DataModels.PageModel import PageModel
 import os
 from Parsing.parsing_logger import multiprocess_parsing_logger
 from functools import partial
+from Notifying.ProgressEvent import ProgressEvent
+
 
 class MangadexImageParser:
     
@@ -13,6 +15,7 @@ class MangadexImageParser:
         param folder is path to folder where were saved images 
         '''
         self.folder = folder
+        self.progress_event = ProgressEvent()
 
     def parse_image(self, page: PageModel):
         '''
@@ -34,8 +37,18 @@ class MangadexImageParser:
                         f.write(chunk)
             finally:
                 r.close()
-    
+
+            # notify all subscribers in progress event 
+
+            kwargs = {
+                "message" : f"page {page} was successfully parsed, path to image {fileoutput}",
+                "path_to_image" : fileoutput,
+                "page_model" : page
+            }
+            self.progress_event.notify(**kwargs)
+            
             return fileoutput
+
         elif r.status_code == 404:
             raise Exception("page is not found")
         else:

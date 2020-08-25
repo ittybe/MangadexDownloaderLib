@@ -5,8 +5,9 @@ from PIL import Image
 import tempfile
 from io import BytesIO
 from PyPDF2 import PdfFileMerger, PdfFileReader
+from Notifying.ProgressEvent import ProgressEvent
 
-# TODO use pdf2 merger for merge some manga into one big pdf file
+
 class PagesCollector:
 
     def __init__(self, fileoutput, folder):
@@ -16,6 +17,7 @@ class PagesCollector:
         '''
         self.fileoutput = fileoutput
         self.folder = folder
+        self.progress_event = ProgressEvent()
         
     def _get_pages_info(self):
         '''
@@ -70,7 +72,7 @@ class PagesCollector:
                 image = Image.open(fullpath)
                 
                 # these things are important. I dont really why, but these are 
-                # these re important because it will prevent some error in PIL package
+                # these are important because it will prevent some error in PIL package (Error memory)
                 image.load()
                 image = image.convert("RGB")
 
@@ -82,6 +84,13 @@ class PagesCollector:
 
             # add to paths path to temp file
             paths_to_separate_pdf_files.append(separate_file)
+
+            # notify all subscribers in progress event 
+            kwargs = {
+                "message" : f"created pdf tmp file {separate_file}",
+                "number_of_pdf_files" : len(pages_group)
+            }
+            self.progress_event.notify(**kwargs)
 
         return paths_to_separate_pdf_files
         
