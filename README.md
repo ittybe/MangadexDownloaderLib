@@ -65,7 +65,7 @@ class CollectorObserver(Observer):
 if __name__ == "__main__":
     t0 = time.time()
 
-    FILEOUTPUT = r"C:\Users\Lenovo\OneDrive\Рабочий стол\onepunchman.pdf"
+    FILEOUTPUT = r"onepunchman.pdf"
     # manga id from mangadex
     MANGA_ID = 7139
     NUMBER_OF_PROCESSES_IN_ONE_TIME = 8
