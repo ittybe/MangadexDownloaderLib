@@ -1,7 +1,7 @@
 import setuptools
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+# with open("README.md", "r") as fh:
+#     long_description = fh.read()
 
 setuptools.setup(
     name="MangadexDownloaderLib",
@@ -9,8 +9,8 @@ setuptools.setup(
     author="ittybe",
     author_email="ittybemain@gmail.com",
     description="fast downloading manga from mangadex in pdf format",
-    long_description=long_description,
-    version="0.0.1",
+    long_description="visit homepage please",
+    version="1.0.1",
     python_requires='>=3.8',
     install_requires=[
         "Pillow==7.2.0",
@@ -19,10 +19,5 @@ setuptools.setup(
     ],
     url="https://github.com/ittybe/MangadexDownloaderLib",
     keywords="Mangadex manga fast pdf multithreading_parsing",
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: Mozilla Public License Version 2.0",
-        "Operating System :: OS Independent",
-    ],
     license="Mozilla Public License Version 2.0"
 )

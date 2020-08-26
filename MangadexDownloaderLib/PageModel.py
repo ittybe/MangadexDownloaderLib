@@ -89,13 +89,14 @@ class PageModel:
     def get_pattern_for_filename():
         '''this is regex for filename for pages
         1 [] is hash chapter,
-        2 [] is volume number (can be float),
-        3 [] is page number in chapter (can be float),
+        2 [] is volume number (can be float and negative),
+        3 [] is page number in chapter (can be float and negative),
         4 [] is extension,
-
+        
+        volume and chapter number is negative when parsing is failed
         @returns regular expression for suggested filename
         '''
-        return "[a-zA-Z0-9]+_[0-9.]+_[0-9.]+_[0-9]+_.[a-zA-Z0-9]+"
+        return "[a-zA-Z0-9]+_[0-9.-]+_[0-9.-]+_[0-9]+_.[a-zA-Z0-9]+"
     
     def __str__(self):
         return f"volume: {self.volume_number} chapter: {self.chapter_number} page: {self.page_number}, hash: {self.hash_chapter}, server url: {self.server_url}, filename on server: {self.filename_on_server}"
@@ -104,15 +105,17 @@ class PageModel:
         return self.__str__()
 
     def __lt__(self, other):
-        volume_number_compare = self.volume_number >= other.volume_number
+        volume_number_compare = self.volume_number >= other.volume_number 
         chapter_number_compare = self.chapter_number >= other.chapter_number
         page_number_compare = self.page_number >= other.page_number
 
-        # other volume number bigger than self and not equel
-        if (volume_number_compare == False):
-            return True
-        elif (volume_number_compare == True and self.volume_number > other.volume_number):
-            return False
+        # compare if volume parsed correctrly, otherwise we can compare only chapters and it will be okay 
+        if self.volume_number >= 0 and other.volume_number >= 0:
+            # other volume number bigger than self and not equel
+            if (volume_number_compare == False):
+                return True
+            elif (volume_number_compare == True and self.volume_number > other.volume_number):
+                return False
 
         # other chapter number bigger than self and not equel
         if (chapter_number_compare == False):

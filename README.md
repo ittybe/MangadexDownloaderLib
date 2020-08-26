@@ -1,5 +1,5 @@
 # MangadexDownloaderLib
-pypi package for downloading manga from mangadex 
+pypi package for downloading manga from mangadex in pdf format
 
 
 ## Usage/Example

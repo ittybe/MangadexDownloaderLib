@@ -5,6 +5,7 @@ from MangadexDownloaderLib.models_logger import models_logger
 
 import re
 import urllib.parse
+
 class ModelsFactory:
     @staticmethod
     def create_manga_model_by_json(json: dict, mangaId: int):
@@ -49,12 +50,13 @@ class ModelsFactory:
     def _string_to_float(string):
         '''
         for chapter/volume parsing to float
+        return negative if parsing failed
         '''
         result = None
         try:
             result = float(string)
         except Exception:
-            result = 0
+            result = -1
         return result
 
 
