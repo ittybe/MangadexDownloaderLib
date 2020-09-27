@@ -1,6 +1,9 @@
 # MangadexDownloaderLib
 pypi package for downloading manga from mangadex in pdf format
 
+## Python
+You need to install python >= 3.8
+
 ## Pypi
 https://pypi.org/project/MangadexDownloaderLib
 
